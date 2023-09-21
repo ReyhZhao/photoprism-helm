@@ -32,18 +32,11 @@ spec:
     - host: {{ .host | quote }}
       http:
         paths:
-        {{- range .paths }}
-          - path: {{ . }}
+          - path: /
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
                   number: http
-              {{- else }}
-              serviceName: {{ $fullName }}
-              servicePort: http
-              {{- end }}
-        {{- end }}
   {{- end }}
 {{- end }}
